@@ -1,16 +1,15 @@
 import java.io.*;
 import java.net.*;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 
         public static void main(String[] args) throws IOException {
-
-
-            File f = new File("/Users/a.kuznetsov/Downloads/test/data.csv");
-            BufferedReader fin = new BufferedReader(new FileReader(f));
-
+            final String inputFileName = "/Users/a.kuznetsov/Downloads/test/data1.csv";
+            final String outputFileName = "/Users/a.kuznetsov/Downloads/test/GeoData.txt";
             int plusrez =0, minusRez =0, notCountry = 0;
+
+            File f = new File(inputFileName);
+            BufferedReader fin = new BufferedReader(new FileReader(f));
             String line;
             while ((line = fin.readLine()) != null) {
                 try
@@ -47,8 +46,7 @@ public class Main {
                 if (countryExist != true ) {
                     if (countrZero) {
                         try {
-                            String filename = "/Users/a.kuznetsov/Downloads/test/GeoData.txt";
-                            FileWriter fw = new FileWriter(filename, true);
+                            FileWriter fw = new FileWriter(outputFileName, true);
                             fw.write(simCountry + " , " + lineLat + " , " + lineLon + " , " + "Google API doesn't provide country \n");
                             fw.close();
                             notCountry++;
@@ -95,8 +93,7 @@ public class Main {
                     System.out.println(resultSt);
 
                     try {
-                        String filename = "/Users/a.kuznetsov/Downloads/test/GeoData.txt";
-                        FileWriter fw = new FileWriter(filename, true);
+                        FileWriter fw = new FileWriter(outputFileName, true);
                         fw.write(simCountry + " , " + lineLat + " , " + lineLon + " , " + country[1] + " , " + resultSt + "\n");
                         fw.close();
                     } catch (IOException ioe) {
@@ -106,8 +103,7 @@ public class Main {
             }
 
 
-            String filename= "/Users/a.kuznetsov/Downloads/test/GeoData.txt";
-            FileWriter fw = new FileWriter(filename,true);
+            FileWriter fw = new FileWriter(outputFileName,true);
             fw.write("Total:" + "\n");
             fw.write("Correct: " + Integer.toString(plusrez) + "\n");
             fw.write("Incorrect: " + Integer.toString(minusRez) + "\n");
